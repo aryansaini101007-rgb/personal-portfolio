@@ -48,7 +48,7 @@ Optimized for:
 * Mobile Devices
 
 ## 🔗 Live Demo
-
+https://personal-portfolio-rosy-one-56.vercel.app/
 
 ## 👨‍💻 Author
 
