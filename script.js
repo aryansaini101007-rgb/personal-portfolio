@@ -199,42 +199,54 @@ function initContactForm() {
 }
 
 
-const glow = document.createElement("div");
-glow.className = "cursor-glow";
-document.body.appendChild(glow);
+const isDesktopPointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-window.addEventListener("mousemove", (e) => {
-  glow.style.left = `${e.clientX}px`;
-  glow.style.top = `${e.clientY}px`;
-});
+if (isDesktopPointer) {
+  const glow = document.createElement("div");
+  glow.className = "cursor-glow";
+  document.body.appendChild(glow);
 
+  let mouseX = 0, mouseY = 0;
+  let rafId = null;
 
-document.querySelectorAll(".project-card").forEach((card) => {
+  window.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
 
-  card.addEventListener("mousemove", (e) => {
+    if (!rafId) {
+      rafId = requestAnimationFrame(() => {
+        glow.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+        if (spotlight) {
+          spotlight.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+        }
+        rafId = null;
+      });
+    }
+  }, { passive: true });
 
-    const rect = card.getBoundingClientRect();
+  document.querySelectorAll(".project-card").forEach((card) => {
+    let cardRaf = null;
 
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    card.addEventListener("mousemove", (e) => {
+      if (cardRaf) return;
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
 
-    const rotateY = ((x / rect.width) - 0.5) * 12;
-    const rotateX = ((y / rect.height) - 0.5) * -12;
+      cardRaf = requestAnimationFrame(() => {
+        const rotateY = ((x / rect.width) - 0.5) * 10;
+        const rotateX = ((y / rect.height) - 0.5) * -10;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+        cardRaf = null;
+      });
+    }, { passive: true });
 
-    card.style.transform = `
-      perspective(1000px)
-      rotateX(${rotateX}deg)
-      rotateY(${rotateY}deg)
-      translateY(-8px)
-    `;
-
+    card.addEventListener("mouseleave", () => {
+      if (cardRaf) cancelAnimationFrame(cardRaf);
+      card.style.transform = "";
+    });
   });
-
-  card.addEventListener("mouseleave", () => {
-    card.style.transform = "";
-  });
-
-});
+}
 
 const counters = document.querySelectorAll(".stat-number");
 
@@ -317,25 +329,12 @@ document.querySelectorAll(
 
 });
 
-const spotlight =
-  document.createElement('div');
-
-spotlight.className = 'spotlight';
-
-document.body.appendChild(spotlight);
-
-window.addEventListener(
-  'mousemove',
-  (e) => {
-
-    spotlight.style.left =
-      e.clientX + 'px';
-
-    spotlight.style.top =
-      e.clientY + 'px';
-
-  }
-);
+let spotlight = null;
+if (isDesktopPointer) {
+  spotlight = document.createElement('div');
+  spotlight.className = 'spotlight';
+  document.body.appendChild(spotlight);
+}
 
 
 const roles = [

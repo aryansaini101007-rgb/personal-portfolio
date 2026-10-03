@@ -558,84 +558,140 @@ nav a.active {
 }
 
 .about-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+}
 
+.about-hero-card {
   display: grid;
-
-  grid-template-columns: 350px 1fr;
-
-  gap: 60px;
-
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+  background: rgba(19, 24, 17, 0.88);
+  border: 1px solid rgba(124, 255, 79, 0.16);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
   align-items: center;
-
 }
 
-.about-image {
-
-  width: 100%;
-
-  max-width: 320px;
-
-  margin: auto;
-
-  overflow: hidden;
-
-  border-radius: 24px;
-
-}
-
-.about-image img {
-
-  width: 100%;
-
-  height: 420px;
-
-  object-fit: cover;
-
-  display: block;
-
-  border-radius: 24px;
-
-}
-
-.about-image::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 60%, rgba(124, 255, 79, 0.12));
-  pointer-events: none;
-}
-
-.about-content h3 {
-  font-size: 1.6rem;
-  font-weight: 700;
-  margin-bottom: 18px;
-}
-
-.about-content p {
-  color: var(--text-dim);
+.about-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(124, 255, 79, 0.1);
+  color: var(--accent);
+  border: 1px solid rgba(124, 255, 79, 0.25);
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 600;
   margin-bottom: 16px;
-  font-size: 1rem;
+}
+
+.about-main-text h3 {
+  font-size: 1.65rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  line-height: 1.3;
+  color: #ffffff;
+}
+
+.about-main-text .about-lead {
+  font-size: 1.08rem;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.about-main-text p {
+  color: var(--text-dim);
+  margin-bottom: 14px;
+  font-size: 0.96rem;
+  line-height: 1.6;
+}
+
+.about-highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.highlight-box {
+  background: rgba(10, 14, 10, 0.65);
+  border: 1px solid rgba(124, 255, 79, 0.12);
+  border-radius: 16px;
+  padding: 20px 16px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  transition: all 0.3s ease;
+}
+
+.highlight-box:hover {
+  border-color: rgba(124, 255, 79, 0.3);
+  transform: translateY(-3px);
+  background: rgba(14, 20, 14, 0.85);
+}
+
+.highlight-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(124, 255, 79, 0.12);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.highlight-info h4 {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.highlight-info p {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin: 0;
+  line-height: 1.4;
 }
 
 .about-info {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 16px;
-  margin-top: 28px;
-  padding-top: 28px;
-  border-top: 1px solid var(--border);
+  justify-content: center;
+  width: 100%;
 }
 
-.about-info>div {
+.about-info .info-pill {
   display: flex;
   align-items: center;
-  gap: 14px;
-  font-size: 0.95rem;
+  gap: 12px;
+  background: rgba(19, 24, 17, 0.8);
+  border: 1px solid rgba(124, 255, 79, 0.12);
+  padding: 12px 20px;
+  border-radius: 100px;
+  font-size: 0.9rem;
+  transition: all 0.25s ease;
+}
+
+.about-info .info-pill:hover {
+  border-color: rgba(124, 255, 79, 0.3);
+  background: rgba(24, 32, 22, 0.95);
+  transform: translateY(-2px);
 }
 
 .about-info i {
-  width: 38px;
-  height: 38px;
+  width: 34px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -643,10 +699,13 @@ nav a.active {
   background: var(--accent-soft);
   color: var(--accent);
   flex-shrink: 0;
+  font-size: 0.95rem;
 }
 
 .about-info a {
   color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
   transition: color 0.2s ease;
 }
 
@@ -661,17 +720,15 @@ nav a.active {
 }
 
 .skill-card {
-  background: rgba(19, 24, 17, .68);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(124, 255, 79, .12);
+  background: rgba(19, 24, 17, 0.92);
+  border: 1px solid rgba(124, 255, 79, 0.14);
   border-radius: var(--radius);
   padding: 32px 20px;
-
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, .35);
-
-  transition: .35s;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  content-visibility: auto;
+  contain-intrinsic-size: auto none auto 160px;
+  will-change: transform;
 }
 
 .skill-card:hover {
@@ -709,24 +766,15 @@ nav a.active {
 }
 
 .project-card {
-
-  background: rgba(19, 24, 17, .68);
-
-  backdrop-filter: blur(18px);
-
-  border: 1px solid rgba(124, 255, 79, .12);
-
+  background: rgba(19, 24, 17, 0.94);
+  border: 1px solid rgba(124, 255, 79, 0.14);
   border-radius: 18px;
-
   overflow: hidden;
-
-  transition:
-    transform .35s,
-    box-shadow .35s,
-    border-color .35s;
-
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
   transform-style: preserve-3d;
-
+  content-visibility: auto;
+  contain-intrinsic-size: auto none auto 420px;
+  will-change: transform;
 }
 
 .project-card:hover {
@@ -1327,22 +1375,17 @@ footer hr {
     margin: 0 auto;
   }
 
-  .about-container,
-  .contact-container {
-
-    display: grid;
-
-    grid-template-columns:
-      1fr 1fr;
-
-    gap: 60px;
-
-    align-items: start;
-
+  .about-hero-card {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 32px 28px;
   }
 
-  .about-image {
-    max-width: 380px;
+  .contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
   }
 
   .skills-grid {
@@ -1718,18 +1761,27 @@ footer hr {
   }
 
   .about-container {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: 40px;
+    gap: 24px;
   }
 
-  .about-image {
-    margin: 0 auto;
-    max-width: 320px;
+  .about-hero-card {
+    padding: 24px 20px;
+    border-radius: 20px;
+  }
+
+  .about-highlights-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .about-info {
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .about-info .info-pill {
+    width: 100%;
+    justify-content: flex-start;
   }
 
   .skills-grid {
